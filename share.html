@@ -94,8 +94,10 @@
       const text = text_input.disabled ? undefined : text_input.value;
       const url = url_input.disabled ? undefined : url_input.value;
 	  var linkToShare = $('#img').attr('src');
+	  alert(linkToShare);
       var image = getDataUri(linkToShare, function(dataUri) {
 					// Do whatever you'd like with the Data URI!
+					alert(dataUri);
 					return dataUri;
 				});
 				alert(image);
