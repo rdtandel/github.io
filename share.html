@@ -111,7 +111,7 @@
 		canvas.getContext('2d').drawImage(image, 0, 0);
 		canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),
 					  'image/png');*/
-		await navigator.share({title,text,url});
+		await navigator.share({title,text,url,image});
         //await navigator.share({title,text,image,'image/jpg'});
       } catch (error) {
         logError('Error sharing: ' + error);
