@@ -100,16 +100,18 @@
 					// Do whatever you'd like with the Data URI!
 					alert(dataUri);
 					return dataUri;
+					try {
+						//await navigator.share({title, text, url, img});
+						//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
+						await navigator.share({blob: dataUri, mimeType: 'image/png'});
+						//await navigator.share({title,text,image,'image/jpg'});
+					  } catch (error) {
+						logError('Error sharing: ' + error);
+						return;
+					  }
 				});
 				alert(image2);
-      try {
-        //await navigator.share({title, text, url, img});
-		await navigator.share({title,text,url,image2,'image/png'});
-        //await navigator.share({title,text,image,'image/jpg'});
-      } catch (error) {
-        logError('Error sharing: ' + error);
-        return;
-      }
+      
 
       logText('Successfully sent share');
     }
@@ -153,7 +155,8 @@
 			//callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
 
 			// ... or get as Data URI
-			callback(canvas.toDataURL('image/png'));
+			//callback(canvas.toDataURL('image/png'));
+			canvas.toBlob(callback(blob), 'image/png');
 		};
 
 		image1.src = url;
