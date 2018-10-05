@@ -100,7 +100,7 @@
 			//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
 			//await navigator.share({text: 'My cat',image: {source: toDataURL, mimeType: 'image/png'}});
 			//await navigator.share({text: 'test',url: url,image: {source: toDataURL, mimeType: 'image/png'}});
-			await navigator.share({text: 'test',url: url,image: toDataURL, mimeType: 'image/png'});
+			await navigator.share({text: 'test',url: url,blob: toDataURL, mimeType: 'image/png'});
 			//await navigator.share({title,text,image,'image/jpg'});
 		  } catch (error) {
 			logError('Error sharing: ' + error);
@@ -145,12 +145,13 @@
 			canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
 			canvas.getContext('2d').drawImage(this, 0, 0);
-			canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),'image/png');
+			//canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),'image/png');
 			// Get raw image data
 			//callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
 
 			// ... or get as Data URI
 			toDataURL = canvas.toDataURL('image/png');
+			toDataURL = canvas.toBlob(blob => return blob,'image/png');
 			//canvas.toBlob(callback(blob), 'image/png');
 		};
 		
