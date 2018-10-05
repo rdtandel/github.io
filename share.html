@@ -99,7 +99,7 @@
 			//await navigator.share({title, text, url, img});
 			//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
 			//await navigator.share({text: 'My cat',image: {source: toDataURL, mimeType: 'image/png'}});
-			await navigator.share({text: 'My cat',url:url,image: toDataURL, mimeType: 'image/png'}});
+			await navigator.share({text: 'test',url: url,image: {source: toDataURL, mimeType: 'image/png'}});
 			//await navigator.share({title,text,image,'image/jpg'});
 		  } catch (error) {
 			logError('Error sharing: ' + error);
