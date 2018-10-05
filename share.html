@@ -90,20 +90,29 @@
       const url_input = document.querySelector('#url');
       const img_input = document.querySelector('#img');
 
+	
       const title = title_input.disabled ? undefined : title_input.value;
       const text = text_input.disabled ? undefined : text_input.value;
       const url = url_input.disabled ? undefined : url_input.value;
-	  var linkToShare = $('#img').attr('src');
-	  alert(linkToShare);
-      var image = getDataUri(linkToShare, function(dataUri) {
+	  //var linkToShare = $('#img').attr('src');
+	  //alert(linkToShare);
+      /*var image2 = getDataUri(linkToShare, function(dataUri) {
 					// Do whatever you'd like with the Data URI!
 					alert(dataUri);
 					return dataUri;
 				});
-				alert(image);
+				alert(image2);*/
       try {
         //await navigator.share({title, text, url, img});
-        await navigator.share({title,text,image,'image/jpg':any});
+		var image = document.querySelector('#img');  // HTMLImageElement representing an <img> element
+		/*var canvas = document.createElement('canvas');
+		canvas.width = image.width;
+		canvas.height = image.height;
+		canvas.getContext('2d').drawImage(image, 0, 0);
+		canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),
+					  'image/png');*/
+		await navigator.share({image: image, mimeType: 'image/png'}),
+        //await navigator.share({title,text,image,'image/jpg'});
       } catch (error) {
         logError('Error sharing: ' + error);
         return;
@@ -146,7 +155,8 @@
 			canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
 			canvas.getContext('2d').drawImage(this, 0, 0);
-
+			canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),
+              'image/png');
 			// Get raw image data
 			//callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
 
