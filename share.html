@@ -25,6 +25,10 @@
         <td><input type="checkbox" id="url_checkbox" checked/></td>
         <td><input id="url" value="https://example.com" size="40"/></td>
     </tr>
+    <tr><td>IMG:</td>
+        <td><input type="checkbox" id="url_checkbox" checked/></td>
+        <td><img id="img" src="http://okbye.digital/test/assets/images/download_modal.jpg" size="40"/></td>
+    </tr>
   </table>
   <p><input id="share" type="button" value="Share" />
      <input id="share-no-gesture" type="button" value="Share without user gesture" /></p>
@@ -85,12 +89,20 @@
       const title_input = document.querySelector('#title');
       const text_input = document.querySelector('#text');
       const url_input = document.querySelector('#url');
+      const img_input = document.querySelector('#img');
 
       const title = title_input.disabled ? undefined : title_input.value;
       const text = text_input.disabled ? undefined : text_input.value;
       const url = url_input.disabled ? undefined : url_input.value;
+	  var linkToShare = $('#img').attr('src');
+      var img_data = getDataUri(linkToShare, function(dataUri) {
+					// Do whatever you'd like with the Data URI!
+					return dataUri;
+				});
       try {
-        await navigator.share({title, text, url});
+        //await navigator.share({title, text, url, img});
+        await navigator.share({text: text,
+                 image: {source: img_data, mimeType: 'image/jpg'}});
       } catch (error) {
         logError('Error sharing: ' + error);
         return;
@@ -124,6 +136,25 @@
     }
 
     window.addEventListener('load', onLoad);
+	function getDataUri(url, callback) {
+		var image = new Image();
+
+		image.onload = function () {
+			var canvas = document.createElement('canvas');
+			canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+			canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+			canvas.getContext('2d').drawImage(this, 0, 0);
+
+			// Get raw image data
+			//callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+
+			// ... or get as Data URI
+			callback(canvas.toDataURL('image/png'));
+		};
+
+		image.src = url;
+	}
   </script>
 </body>
 </html>
