@@ -113,6 +113,7 @@
 				alert(image2);*/
 				
 	var image=document.querySelector('#img');  // HTMLImageElement representing an <img> element
+	     navigator.share({image: {source: image, mimeType: 'image/jpg'}});
 	var canvas = document.createElement('canvas');
 	canvas.width = image.width;
 	canvas.height = image.height;
