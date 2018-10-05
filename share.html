@@ -100,7 +100,7 @@
 			//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
 			//await navigator.share({text: 'My cat',image: {source: toDataURL, mimeType: 'image/png'}});
 			//await navigator.share({text: 'test',url: url,image: {source: toDataURL, mimeType: 'image/png'}});
-			await navigator.share({text: 'test',url: url,blob: toDataURL, mimeType: 'image/png'});
+			await navigator.share({text: text,url: url,image: image1, mimeType: 'image/png'});
 			//await navigator.share({title,text,image,'image/jpg'});
 		  } catch (error) {
 			logError('Error sharing: ' + error);
@@ -150,7 +150,7 @@
 			//callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
 
 			// ... or get as Data URI
-			toDataURL = canvas.toDataURL('image/png');
+			//toDataURL = canvas.toDataURL('image/png');
 			toDataURL = canvas.toBlob(blob => return blob,'image/png');
 			//canvas.toBlob(callback(blob), 'image/png');
 		};
