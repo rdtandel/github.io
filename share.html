@@ -96,7 +96,7 @@
       const url = url_input.disabled ? undefined : url_input.value;
 	  var linkToShare = $('#img').attr('src');
 	  //alert(linkToShare);
-      var image2 = getDataUri(linkToShare, function(dataUri) {
+      /*var image2 = getDataUri(linkToShare, function(dataUri) {
 					// Do whatever you'd like with the Data URI!
 					alert(dataUri);
 					return dataUri;
@@ -110,7 +110,15 @@
 						return;
 					  }
 				});
-				alert(image2);
+				alert(image2);*/
+				
+	var image=document.querySelector('#img');  // HTMLImageElement representing an <img> element
+	var canvas = document.createElement('canvas');
+	canvas.width = image.width;
+	canvas.height = image.height;
+	canvas.getContext('2d').drawImage(image, 0, 0);
+	canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),
+				  'image/png');
       
 
       logText('Successfully sent share');
