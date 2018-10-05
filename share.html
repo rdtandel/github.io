@@ -23,10 +23,9 @@
     </tr>
     <tr><td>URL:</td>
         <td><input type="checkbox" id="url_checkbox" checked/></td>
-        <td><input id="url" value="https://example.com" size="40"/></td>
+        <td><input id="url" value="http://okbye.digital/test/assets/images/download_modal.jpg" size="40"/></td>
     </tr>
     <tr><td>IMG:</td>
-        <td><input type="checkbox" id="url_checkbox" checked/></td>
         <td><img id="img" src="http://okbye.digital/test/assets/images/download_modal.jpg" size="40"/></td>
     </tr>
   </table>
@@ -99,9 +98,10 @@
 					// Do whatever you'd like with the Data URI!
 					return dataUri;
 				});
+				alert(image);
       try {
         //await navigator.share({title, text, url, img});
-        await navigator.share({title,text,url});
+        await navigator.share({title,text,image,'image/jpg'});
       } catch (error) {
         logError('Error sharing: ' + error);
         return;
@@ -136,9 +136,9 @@
 
     window.addEventListener('load', onLoad);
 	function getDataUri(url, callback) {
-		var image = new Image();
+		var image1 = new Image();
 
-		image.onload = function () {
+		image1.onload = function () {
 			var canvas = document.createElement('canvas');
 			canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
 			canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
@@ -152,7 +152,7 @@
 			callback(canvas.toDataURL('image/png'));
 		};
 
-		image.src = url;
+		image1.src = url;
 	}
   </script>
 </body>
