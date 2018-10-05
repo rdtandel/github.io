@@ -113,12 +113,12 @@
 				alert(image2);*/
 				
 	var image=document.querySelector('#img');  // HTMLImageElement representing an <img> element
-	     navigator.share({image: {source: image, mimeType: 'image/jpg'}});
+	     //navigator.share({image: {source: image, mimeType: 'image/jpg'}});
 	var canvas = document.createElement('canvas');
 	canvas.width = image.width;
 	canvas.height = image.height;
 	canvas.getContext('2d').drawImage(image, 0, 0);
-	canvas.toBlob(blob => navigator.share({image: {source: image, mimeType: 'image/jpg'}}),
+	canvas.toBlob(blob => navigator.share({image: {source: blob, mimeType: 'image/jpg'}}),
 				  'image/png');
       
 
