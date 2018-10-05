@@ -95,14 +95,13 @@
       const text = text_input.disabled ? undefined : text_input.value;
       const url = url_input.disabled ? undefined : url_input.value;
 	  var linkToShare = $('#img').attr('src');
-      var img_data = getDataUri(linkToShare, function(dataUri) {
+      var image = getDataUri(linkToShare, function(dataUri) {
 					// Do whatever you'd like with the Data URI!
 					return dataUri;
 				});
       try {
         //await navigator.share({title, text, url, img});
-        await navigator.share({text: text,
-                 image: {source: img_data, mimeType: 'image/jpg'}});
+        await navigator.share({title,text,image,'image/jpg'});
       } catch (error) {
         logError('Error sharing: ' + error);
         return;
