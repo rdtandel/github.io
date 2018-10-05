@@ -46,7 +46,7 @@
   </ul>
   <script>
     'use strict';
-
+	var toDataURL = "";
     function sleep(delay) {
       return new Promise(resolve => {
         setTimeout(resolve, delay);
@@ -94,32 +94,17 @@
       const title = title_input.disabled ? undefined : title_input.value;
       const text = text_input.disabled ? undefined : text_input.value;
       const url = url_input.disabled ? undefined : url_input.value;
-	  var linkToShare = $('#img').attr('src');
-	  //alert(linkToShare);
-      var image2 = getDataUri(linkToShare, function(dataUri) {
-					// Do whatever you'd like with the Data URI!
-					//alert(dataUri);
-					//return dataUri;
-					try {
-						//await navigator.share({title, text, url, img});
-						//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
-						navigator.share({text: 'My cat',image: {source: dataUri, mimeType: 'image/png'}});
-						//await navigator.share({title,text,image,'image/jpg'});
-					  } catch (error) {
-						logError('Error sharing: ' + error);
-						return;
-					  }
-				});
-				//alert(image2);
-				
-	/*var image=document.querySelector('#img');  // HTMLImageElement representing an <img> element
-	var canvas = document.createElement('canvas');
-	canvas.width = image.width;
-	canvas.height = image.height;
-	canvas.getContext('2d').drawImage(image, 0, 0);
-	canvas.toBlob(blob => navigator.share({image: image, mimeType: 'image/png'}),
-				  'image/png');
-      */
+	  
+		try {
+			//await navigator.share({title, text, url, img});
+			//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
+			await navigator.share({text: 'My cat',image: {source: toDataURL, mimeType: 'image/png'}});
+			//await navigator.share({title,text,image,'image/jpg'});
+		  } catch (error) {
+			logError('Error sharing: ' + error);
+			return;
+		  }
+
 
       logText('Successfully sent share');
     }
@@ -147,12 +132,31 @@
         logError('Error: You need to use a browser that supports this draft ' +
                  'proposal.');
       }
+	  
+	  var linkToShare = $('#img').attr('src');
+	  alert(linkToShare);
+	  var image1 = new Image();
+	  	image1.src = linkToShare;
+		image1.onload = function () {
+			var canvas = document.createElement('canvas');
+			canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+			canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+			canvas.getContext('2d').drawImage(this, 0, 0);
+			//canvas.toBlob(blob => navigator.share({blob: blob, mimeType: 'image/png'}),'image/png');
+			// Get raw image data
+			//callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+
+			// ... or get as Data URI
+			toDataURL = canvas.toDataURL('image/png');
+			//canvas.toBlob(callback(blob), 'image/png');
+		};
+		
     }
 
     window.addEventListener('load', onLoad);
 	function getDataUri(url, callback) {
 		var image1 = new Image();
-alert('yers');
 		image1.onload = function () {
 			var canvas = document.createElement('canvas');
 			canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
