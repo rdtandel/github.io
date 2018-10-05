@@ -101,7 +101,7 @@
 				});
       try {
         //await navigator.share({title, text, url, img});
-        await navigator.share({title,text,image,'image/jpg'});
+        await navigator.share({title,text,url});
       } catch (error) {
         logError('Error sharing: ' + error);
         return;
