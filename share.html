@@ -96,11 +96,11 @@
       const url = url_input.disabled ? undefined : url_input.value;
 	  
 		try {
-			//await navigator.share({title, text, url, img});
+			await navigator.share({title, text, url});
 			//await navigator.share({title,text,url,dataUri, mimeType: 'image/png'});
 			//await navigator.share({text: 'My cat',image: {source: toDataURL, mimeType: 'image/png'}});
 			//await navigator.share({text: 'test',url: url,image: {source: toDataURL, mimeType: 'image/png'}});
-			await navigator.share({text: text,url: url,image: img_input, mimeType: 'image/png'});
+			//await navigator.share({text: text,url: url,image: document.querySelector('#img'), mimeType: 'image/png'});
 			//await navigator.share({title,text,image,'image/jpg'});
 		  } catch (error) {
 			logError('Error sharing: ' + error);
@@ -151,7 +151,7 @@
 
 			// ... or get as Data URI
 			//toDataURL = canvas.toDataURL('image/png');
-			toDataURL = canvas.toBlob(blob => return blob,'image/png');
+			toDataURL = canvas.toBlob(blob,'image/png');
 			//canvas.toBlob(callback(blob), 'image/png');
 		};
 		
